@@ -25,10 +25,10 @@ from osgeo import gdal, ogr, osr
 
 
 #Specifying the Raster File location
-src_shp = r'D:\TESTfolder\2019_test_results\BC\LCV_BC_2019.pix' 
+src_data = r'D:\TESTfolder\2019_test_results\BC\LCV_BC_2019.pix' 
 
 #Use gdal to extract the data for the specific file.
-dataset = gdal.Open(src_shp, gdal.GA_ReadOnly)
+dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
 
 #Data validation of the input file
 if not dataset:
