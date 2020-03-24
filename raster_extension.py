@@ -37,9 +37,9 @@ if not dataset:
 #Count raster pixel data
 #Get the unique pixel values
 #Count the values of specific pixel per category
-ds_ref = gdal.Open(src_shp)
-crop_ref_data = ds_ref.ReadAsArray()
-uni_class, uni_count = numpy.unique(crop_ref_data,return_counts=True)
+ds_ref = gdal.Open(src_data)
+ref_data = ds_ref.ReadAsArray()
+uni_class, uni_count = numpy.unique(ref_data,return_counts=True)
 
 
 #Removing the 0's from the results
