@@ -8,7 +8,7 @@ Description: This script takes a raster file and a shapefile of AOI as an input.
 
 
 Requirements:
- 1. Gdal(GDAL-3.0.4-cp38-cp38-win_amd64.whl) libraries
+ 1. Gdal library
  2. The program was written on Python 3 >
  3. Input raster file and the file location (ex - E:/AAFC/Thierry/S2_ON_London2018_v1.tif)
  4. Input Shape file location of the AOI (ex - E:/AAFC/Thierry/AOI.shp)
