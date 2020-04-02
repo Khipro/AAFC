@@ -18,6 +18,7 @@ Author- Kshipra Basu
 Date- April 2020
 
 Note: This program is work-in progress with possibilities of being fine tuned.
+      This code will run with python 3 and their respective gdal libraries.
 
 
 
