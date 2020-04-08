@@ -33,19 +33,6 @@ from osgeo import gdal, ogr, osr
 import struct
 
 
-# Specifying the Raster File location
-src_data = r"E:\AAFC\Thierry\clip7.tif"
-
-# Set name of output raster
-output_file = "E:/AAFC/Thierry/raster_output11.tif"
-
-# Use gdal to extract the data for the specific file.
-dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
-
-# Data validation of the input file
-if not dataset:
-    print("Invalid input")
-
 
 def changeRasterValues(band):
 
@@ -110,40 +97,55 @@ def changeRasterValues(band):
     return raster
 
 
-dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
+if __name__ == "__main__":
 
-# Get projection
-prj = dataset.GetProjection()
+    # Specifying the Raster File location
+    src_data = r"E:\AAFC\Thierry\clip7.tif"
 
-# setting band
-number_band = 1
+    # Set name of output raster
+    output_file = "E:/AAFC/Thierry/raster_output12.tif"
 
-band = dataset.GetRasterBand(number_band)
+    # Use gdal to extract the data for the specific file.
+    dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
 
-# Get raster metadata
-geotransform = dataset.GetGeoTransform()
+    # Data validation of the input file
+    if not dataset:
+        print("Invalid input")
+    dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
 
+    # Get projection
+    prj = dataset.GetProjection()
 
-# Create gtif file with rows and columns from parent raster
-driver = gdal.GetDriverByName("GTiff")
+    # setting band
+    number_band = 1
 
-raster = changeRasterValues(band)
+    band = dataset.GetRasterBand(number_band)
 
-dst_ds = driver.Create(output_file, band.XSize, band.YSize, number_band, band.DataType)
+    # Get raster metadata
+    geotransform = dataset.GetGeoTransform()
 
-# writting output raster
-dst_ds.GetRasterBand(number_band).WriteArray(raster)
+    # Create gtif file with rows and columns from parent raster
+    driver = gdal.GetDriverByName("GTiff")
 
-# setting extension of output raster
-# top left x, w-e pixel resolution, rotation, top left y, rotation, n-s pixel resolution
-dst_ds.SetGeoTransform(geotransform)
+    raster = changeRasterValues(band)
 
-# setting spatial reference of output raster
-srs = osr.SpatialReference(wkt=prj)
-dst_ds.SetProjection(srs.ExportToWkt())
+    dst_ds = driver.Create(
+        output_file, band.XSize, band.YSize, number_band, band.DataType
+    )
 
-# Close output raster dataset
-dst_ds = None
+    # writting output raster
+    dst_ds.GetRasterBand(number_band).WriteArray(raster)
 
-# Close main raster dataset
-dataset = None
+    # setting extension of output raster
+    # top left x, w-e pixel resolution, rotation, top left y, rotation, n-s pixel resolution
+    dst_ds.SetGeoTransform(geotransform)
+
+    # setting spatial reference of output raster
+    srs = osr.SpatialReference(wkt=prj)
+    dst_ds.SetProjection(srs.ExportToWkt())
+
+    # Close output raster dataset
+    dst_ds = None
+
+    # Close main raster dataset
+    dataset = None
