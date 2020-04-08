@@ -48,14 +48,14 @@ def changeRasterValues(band):
 
     data_type = band.DataType
 
-    BandType = gdal.GetDataTypeName(band.DataType)
+    band_type = gdal.GetDataTypeName(band.DataType)
 
     raster = []
 
     for y in range(band.YSize):
 
         scanline = band.ReadRaster(0, y, band.XSize, 1, band.XSize, 1, data_type)
-        values = struct.unpack(fmttypes[BandType] * band.XSize, scanline)
+        values = struct.unpack(fmttypes[band_type] * band.XSize, scanline)
         raster.append(values)
 
     raster = [list(item) for item in raster]
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     src_data = r"E:\AAFC\Thierry\clip7.tif"
 
     # Set name of output raster
-    output_file = "E:/AAFC/Thierry/raster_output12.tif"
+    output_file = "E:/AAFC/Thierry/raster_output13.tif"
 
     # Use gdal to extract the data for the specific file.
     dataset = gdal.Open(src_data, gdal.GA_ReadOnly)
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     # Create gtif file with rows and columns from parent raster
     driver = gdal.GetDriverByName("GTiff")
 
-    # Changing pixel values 
+    # Changing pixel values
     raster = changeRasterValues(band)
 
     # Creating data source with similar input raster projection
