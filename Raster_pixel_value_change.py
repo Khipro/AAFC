@@ -127,8 +127,10 @@ if __name__ == "__main__":
     # Create gtif file with rows and columns from parent raster
     driver = gdal.GetDriverByName("GTiff")
 
+    # Changing pixel values 
     raster = changeRasterValues(band)
 
+    # Creating data source with similar input raster projection
     dst_ds = driver.Create(
         output_file, band.XSize, band.YSize, number_band, band.DataType
     )
